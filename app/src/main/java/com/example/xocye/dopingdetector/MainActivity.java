@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-// Doping Detector :-o
+// Doping Detector :-) :-P
 public class MainActivity extends AppCompatActivity {
 
     /**
