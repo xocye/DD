@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 // Doping Detector
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
