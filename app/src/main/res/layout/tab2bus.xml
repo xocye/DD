@@ -8,9 +8,33 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
 
-    <TextView
-        android:id="@+id/section_label"
+    <EditText
+        android:id="@+id/Text_Codigo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Busqueda"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="87dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
+    <Button
+        android:id="@+id/Busqueda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="144dp"
+        android:text="Buscar" />
+
+    <TextView
+        android:id="@+id/Codigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Código del producto"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
 </RelativeLayout>
