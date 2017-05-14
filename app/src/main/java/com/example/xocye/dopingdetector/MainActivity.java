@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 
 // Doping Detector :-) :-P
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(1);// Para iniciar  en la prosión 1
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -102,10 +104,11 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position){
                 case 0:
-                    Tab1Esc tab1 = new Tab1Esc();
+                    Tab1Bus tab1 = new Tab1Bus();
                     return tab1;
+
                 case 1:
-                    Tab2Bus tab2 = new Tab2Bus();
+                    Tab2Esc tab2 = new Tab2Esc();
                     return tab2;
                 case 2:
                     Tab3Form tab3 = new Tab3Form();
@@ -126,9 +129,10 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Escaner";
-                case 1:
                     return "Busqueda";
+                case 1:
+                    return "Escaner";
+
                 case 2:
                     return "Formulario";
             }
