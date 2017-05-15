@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 
 // Doping Detector :-) :-P
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(1);// Para iniciar  en la prosión 1
+        mViewPager.setCurrentItem(1);// Para iniciar en la prosión 1
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -104,11 +103,11 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position){
                 case 0:
-                    Tab1Bus tab1 = new Tab1Bus();
+                    Tab1Shear tab1 = new Tab1Shear();
                     return tab1;
 
                 case 1:
-                    Tab2Esc tab2 = new Tab2Esc();
+                    Tab2Scan tab2 = new Tab2Scan();
                     return tab2;
                 case 2:
                     Tab3Form tab3 = new Tab3Form();
@@ -138,5 +137,9 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
-    }
-}
+    }//charsequen
+
+    // Boton flotante
+
+
+}////class
