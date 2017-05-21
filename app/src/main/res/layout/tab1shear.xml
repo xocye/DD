@@ -12,23 +12,24 @@
         android:id="@+id/Text_Codigo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Busqueda"
+        android:layout_below="@+id/label_codigo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="87dp"
+        android:layout_marginTop="86dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:maxLength="20" />
 
     <Button
         android:id="@+id/Busqueda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/Text_Codigo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="144dp"
+        android:layout_marginTop="88dp"
         android:text="Buscar" />
 
     <TextView
-        android:id="@+id/Codigo"
+        android:id="@+id/label_codigo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

@@ -1,8 +1,7 @@
 package com.example.xocye.dopingdetector;
 
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -14,24 +13,27 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
+import android.widget.Button;
+
+import com.example.xocye.dopingdetector.fragment.Tab1Shear;
+import com.example.xocye.dopingdetector.fragment.Tab2Scan;
+import com.example.xocye.dopingdetector.fragment.Tab3Form;
+
+import com.example.xocye.dopingdetector.dataaccess.DataAccess;
 
 // Doping Detector :-) :-P
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+    private EditText et1;
+    Button btn1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +54,15 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        /**FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+
+        /////  ook
+
+        et1 = (EditText) findViewById(R.id.Text_Codigo);
+
+        /**btn1 = (Button) findViewById(R.id.Busqueda;
+         btn1.setOnClickListener(new OnClickListener() {
+        @Override public void onClick(View v) {
+        }
         });
          */
     }//onCreate
@@ -86,11 +90,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**Deleted
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -101,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
 
 
-            switch (position){
+            switch (position) {
                 case 0:
                     Tab1Shear tab1 = new Tab1Shear();
                     return tab1;
@@ -138,4 +137,22 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
+    // Hacemos búsqueda por codigo
+
+    public void Busqueda(View v) {
+        DataAccess dd = new DataAccess(this,
+                "DD", null, 1);
+        SQLiteDatabase bd = dd.getWritableDatabase();
+        String cod = et1.getText().toString();
+        Cursor fila = bd.rawQuery(
+                "select Code, Name from Farmaco where Code=" + cod, null);
+        if (fila.moveToFirst()) {
+
+        } else
+            Toast.makeText(this, "No existe el farmaco",
+                    Toast.LENGTH_SHORT).show();
+        bd.close();
+    }
+
 }////class

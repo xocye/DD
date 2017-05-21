@@ -8,4 +8,89 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
 
+    <TextView
+        android:id="@+id/textForName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre del Farmaco:"
+        android:textColor="@android:color/black"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="22dp" />
+
+    <TextView
+        android:id="@+id/textForCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Código del Famaco:"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/editTextName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="35dp" />
+
+    <TextView
+        android:id="@+id/textForDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descripción:"
+        android:textColor="@android:color/black"
+        android:layout_above="@+id/editTextDes"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:maxLength="20"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:layout_below="@+id/textForName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editTextCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:maxLength="20"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:layout_below="@+id/textForCode"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editTextDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnEnviar"
+        android:layout_alignEnd="@+id/btnEnviar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/btnEnviar"
+        android:layout_marginBottom="47dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:maxLength="125"
+        android:maxLines="5"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btnEnviar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="61dp"
+        android:layout_toEndOf="@+id/textForCode"
+        android:layout_toRightOf="@+id/textForCode"
+        android:text="Enviar" />
 </RelativeLayout>
