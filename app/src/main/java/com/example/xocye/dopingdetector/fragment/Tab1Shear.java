@@ -17,6 +17,7 @@ public class Tab1Shear extends Fragment {//class
         View rootView = inflater.inflate(R.layout.tab1shear, container, false);
         return rootView;
 
+
     }
 
 }//class

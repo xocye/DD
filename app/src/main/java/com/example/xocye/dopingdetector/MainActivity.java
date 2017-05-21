@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private EditText et1;
-    Button btn1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         et1 = (EditText) findViewById(R.id.Text_Codigo);
 
-        /**btn1 = (Button) findViewById(R.id.Busqueda;
-         btn1.setOnClickListener(new OnClickListener() {
-        @Override public void onClick(View v) {
-        }
-        });
-         */
+
     }//onCreate
 
 
