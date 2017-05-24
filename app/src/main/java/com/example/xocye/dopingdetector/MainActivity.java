@@ -1,5 +1,6 @@
 package com.example.xocye.dopingdetector;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 
 
@@ -27,17 +29,22 @@ import com.example.xocye.dopingdetector.fragment.Tab3Form;
 
 import com.example.xocye.dopingdetector.dataaccess.DataAccess;
 
+import java.math.BigInteger;
+
 // Doping Detector :-) :-P
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private EditText et1;
+    public EditText et1, e1, e2, e3;
+    private Button btn1, btn2;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,14 +56,18 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(1);// Para iniciar en la prosión 1
+        mViewPager.callOnClick();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        // base  de   datos
+        DataAccess DD = new DataAccess(this, "DD",null,1);
+        db = DD.getReadableDatabase();
 
-        /////  ook
-
-        et1 = (EditText) findViewById(R.id.Text_Codigo);
+        // Botones
+        btn1 = (Button) findViewById(R.id.btnBusqueda);
+        btn2 = (Button) findViewById(R.id.btnEnviar);
 
 
     }//onCreate
@@ -77,11 +88,27 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.btnAcerca) {
+            Toast.makeText(this, "Doping Detector Version 1.0.0",
+                    Toast.LENGTH_SHORT).show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case (R.id.btnBusqueda):
+                Busqueda();
+                break;
+
+            case (R.id.btnEnviar):
+                EnviarCorreo();
+                 break;
+        }
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -134,19 +161,55 @@ public class MainActivity extends AppCompatActivity {
 
     // Hacemos búsqueda por codigo
 
-    public void Busqueda(View v) {
-        DataAccess dd = new DataAccess(this,
-                "DD", null, 1);
-        SQLiteDatabase bd = dd.getWritableDatabase();
-        String cod = et1.getText().toString();
-        Cursor fila = bd.rawQuery(
-                "select Code, Name from Farmaco where Code=" + cod, null);
-        if (fila.moveToFirst()) {
+    public void Busqueda() {
 
-        } else
+        et1 = (EditText) findViewById(R.id.editTextCodeB);
+        String[] consulta = new String[]{et1.getText().toString()};
+
+        Cursor c = db.rawQuery("SELECT * FROM  Farmaco WHERE Code=?", consulta);
+        if (c.moveToFirst()) {
+            do {
+                String Code = c.getString(0);
+                String Name = c.getString(1);
+                String Description = c.getString(2);
+                Toast.makeText(this, "Nombre del fármaco: " + Name + "\n"
+                                + "Código del fármaco: " + Code + "\n"
+                                + "Descripción del fármaco: " + Description + "\n",
+                        Toast.LENGTH_LONG).show();
+            }
+            while (c.moveToNext());
+
+        } else {
             Toast.makeText(this, "No existe el farmaco",
                     Toast.LENGTH_SHORT).show();
-        bd.close();
+        }
+
+        et1.setText("");
     }
 
+
+    // Enviar  correo
+
+    public void EnviarCorreo() {
+
+        e1 = (EditText) findViewById(R.id.editTextName);
+        e2 = (EditText) findViewById(R.id.editTextCode);
+        e3 = (EditText) findViewById(R.id.editTextDes);
+
+            String Mensaje = "Nombre del fármaco: " + e1.getText() + "\n"
+                    + "Código del fármaco: " + e2.getText() + "\n"
+                    + "Descripción del fármaco: " + e3.getText() + "\n";
+
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("plain/text");
+            i.putExtra(Intent.EXTRA_EMAIL,new String[]{"dopingdetector@gmail.com"});
+            i.putExtra(Intent.EXTRA_SUBJECT,"Datos de nuevo farmaco");
+            i.putExtra(Intent.EXTRA_TEXT,Mensaje);
+            startActivity(i);
+
+            e1.setText("");
+            e2.setText("");
+            e3.setText("");
+
+}
 }////class

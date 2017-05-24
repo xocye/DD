@@ -6,18 +6,26 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataAccess extends SQLiteOpenHelper{
 
+
+
     public DataAccess(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table Farmaco(Code int primary key,Name text)");
+     // si no existe la  base de datos la crea  y  ejecuta los sigeunetes comandos
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-    }
+        // se  elimina la  versión anterior  de la tabala
+      db.execSQL("DROP TABLE IF EXISTS Farmaco");
 
+        // se  crea la nueva version de la tabla
+
+    }
 }

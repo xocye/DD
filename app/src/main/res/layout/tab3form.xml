@@ -17,7 +17,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
-        android:text="Nombre  del farmaco:"
+        android:text="Nombre  del fármaco:"
         android:textColor="@android:color/black" />
 
     <TextView
@@ -28,31 +28,32 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editTextName"
         android:layout_marginTop="35dp"
-        android:text="Código del farmaco:"
+        android:text="Código del fármaco:"
         android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/textForDes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editTextDes"
+        android:text="Descripción del  fármaco:"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/editTextCode"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="Descripción del  farmaco:"
-        android:textColor="@android:color/black" />
+        android:layout_marginTop="33dp" />
 
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textForName"
         android:ems="10"
         android:inputType="textPersonName"
         android:maxLength="20"
         android:textColor="@android:color/black"
-        android:textSize="14sp"
-        android:layout_below="@+id/textForName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/editTextCode"
@@ -71,27 +72,24 @@
         android:id="@+id/editTextDes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnEnviar"
-        android:layout_alignEnd="@+id/btnEnviar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/btnEnviar"
-        android:layout_marginBottom="47dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:lines="5"
         android:maxLength="125"
         android:maxLines="5"
         android:textColor="@android:color/black"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:layout_below="@+id/textForDes"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btnEnviar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_marginBottom="61dp"
-        android:layout_toEndOf="@+id/textForCode"
-        android:layout_toRightOf="@+id/textForCode"
-        android:text="Enviar" />
+        android:onClick="onClick"
+        android:text="Enviar"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/textForName"
+        android:layout_toEndOf="@+id/textForName" />
 </RelativeLayout>

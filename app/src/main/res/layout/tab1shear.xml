@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/Text_Codigo"
+        android:id="@+id/editTextCodeB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/label_codigo"
@@ -20,12 +20,13 @@
         android:maxLength="20" />
 
     <Button
-        android:id="@+id/Busqueda"
+        android:id="@+id/btnBusqueda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Text_Codigo"
+        android:layout_below="@+id/editTextCodeB"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="88dp"
+        android:onClick="onClick"
         android:text="Buscar" />
 
     <TextView
@@ -35,7 +36,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="Código del producto"
+        android:text="Código del fármaco"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 </RelativeLayout>
