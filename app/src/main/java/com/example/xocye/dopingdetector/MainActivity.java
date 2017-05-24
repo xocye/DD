@@ -31,7 +31,8 @@ import com.example.xocye.dopingdetector.dataaccess.DataAccess;
 
 import java.math.BigInteger;
 
-// Doping Detector :-) :-P
+/** Doping Detector VERSION  ESTABLE*/
+
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.btnAcerca) {
-            Toast.makeText(this, "Doping Detector Version 1.0.0",
+            Toast.makeText(this, "Doping Detector Version 0.1",
                     Toast.LENGTH_SHORT).show();
             return true;
         }
