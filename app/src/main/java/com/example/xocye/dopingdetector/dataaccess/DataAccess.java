@@ -6,11 +6,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataAccess extends SQLiteOpenHelper{
 
+        private static final  String dbname = "DD.db";
 
+    public DataAccess(Context context) {
 
-    public DataAccess(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+        super(context, dbname, null, 1);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {

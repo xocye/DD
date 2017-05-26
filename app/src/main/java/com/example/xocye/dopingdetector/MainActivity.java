@@ -29,6 +29,11 @@ import com.example.xocye.dopingdetector.fragment.Tab3Form;
 
 import com.example.xocye.dopingdetector.dataaccess.DataAccess;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
 
 /** Doping Detector VERSION  ESTABLE*/
@@ -40,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public EditText et1, e1, e2, e3;
     private Button btn1, btn2;
     private SQLiteDatabase db;
+    private DataAccess da = new DataAccess(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +70,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         tabLayout.setupWithViewPager(mViewPager);
 
         // base  de   datos
-        DataAccess DD = new DataAccess(this, "DD",null,1);
-        db = DD.getReadableDatabase();
+        try {
+            base();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }// base  de   datos
+
+        db = da.getReadableDatabase();
+
+        // base  de   datos
+
 
         // Botones
         btn1 = (Button) findViewById(R.id.btnBusqueda);
@@ -72,6 +88,42 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 
     }//onCreate
+
+    private void base() throws IOException {
+
+//Open your local db as the input stream
+        String packageName = getApplicationContext().getPackageName();
+        String DB_PATH = "/data/data/" + packageName + "/databases/";
+//Create the directory if it does not exist
+        File directory = new File(DB_PATH);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        String DB_NAME = "DD.db"; //The name of the source sqlite file
+
+        InputStream myInput = getAssets().open("DD.db");
+
+
+// Path to the just created empty db
+        String outFileName = DB_PATH + DB_NAME;
+
+//Open the empty db as the output stream
+        OutputStream myOutput = new FileOutputStream(outFileName);
+
+//transfer bytes from the inputfile to the outputfile
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = myInput.read(buffer)) > 0) {
+            myOutput.write(buffer, 0, length);
+        }
+
+//Close the streams
+        myOutput.flush();
+        myOutput.close();
+        myInput.close();
+
+    }
 
 
     @Override
