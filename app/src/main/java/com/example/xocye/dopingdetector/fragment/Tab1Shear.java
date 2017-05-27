@@ -16,7 +16,6 @@ import com.example.xocye.dopingdetector.MainActivity;
 import com.example.xocye.dopingdetector.R;
 import com.example.xocye.dopingdetector.dataaccess.DataAccess;
 
-
 public class Tab1Shear extends Fragment{//class
     private DataAccess da = null;
     private SQLiteDatabase db= null;
