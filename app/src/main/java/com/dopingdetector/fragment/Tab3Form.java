@@ -1,6 +1,5 @@
-package com.example.xocye.dopingdetector.fragment;
+package com.dopingdetector.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -10,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.xocye.dopingdetector.R;
+import com.dopingdetector.R;
 
 public class Tab3Form extends Fragment{
 

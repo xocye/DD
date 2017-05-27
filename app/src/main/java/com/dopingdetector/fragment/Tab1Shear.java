@@ -1,4 +1,4 @@
-package com.example.xocye.dopingdetector.fragment;
+package com.dopingdetector.fragment;
 
 
 import android.database.Cursor;
@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.xocye.dopingdetector.MainActivity;
-import com.example.xocye.dopingdetector.R;
-import com.example.xocye.dopingdetector.dataaccess.DataAccess;
+import com.dopingdetector.MainActivity;
+import com.dopingdetector.R;
+import com.dopingdetector.dataaccess.DataAccess;
 
 public class Tab1Shear extends Fragment{//class
     private DataAccess da = null;

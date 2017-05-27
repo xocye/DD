@@ -1,4 +1,4 @@
-package com.example.xocye.dopingdetector;
+package com.dopingdetector;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.xocye.dopingdetector", appContext.getPackageName());
+        assertEquals("com.dopingdetector", appContext.getPackageName());
     }
 }

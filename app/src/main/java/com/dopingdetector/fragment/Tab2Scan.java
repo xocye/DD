@@ -1,4 +1,4 @@
-package com.example.xocye.dopingdetector.fragment;
+package com.dopingdetector.fragment;
 
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.example.xocye.dopingdetector.CameraPreview;
-import com.example.xocye.dopingdetector.R;
+import com.dopingdetector.CameraPreview;
+import com.dopingdetector.R;
 
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;

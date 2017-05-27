@@ -1,4 +1,4 @@
-package com.example.xocye.dopingdetector;
+package com.dopingdetector;
 
 import org.junit.Test;
 

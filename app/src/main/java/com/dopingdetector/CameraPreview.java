@@ -1,4 +1,4 @@
-package com.example.xocye.dopingdetector;
+package com.dopingdetector;
 
 import android.content.Context;
 import android.hardware.Camera;

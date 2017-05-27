@@ -1,6 +1,5 @@
-package com.example.xocye.dopingdetector;
+package com.dopingdetector;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
 import android.support.v7.app.AppCompatActivity;
@@ -15,26 +14,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.EditText;
 
 
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 import android.widget.Button;
 
-import com.example.xocye.dopingdetector.fragment.Tab1Shear;
-import com.example.xocye.dopingdetector.fragment.Tab2Scan;
-import com.example.xocye.dopingdetector.fragment.Tab3Form;
+import com.dopingdetector.fragment.Tab1Shear;
+import com.dopingdetector.fragment.Tab2Scan;
+import com.dopingdetector.fragment.Tab3Form;
 
-import com.example.xocye.dopingdetector.dataaccess.DataAccess;
+import com.dopingdetector.dataaccess.DataAccess;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.math.BigInteger;
 
 /** Doping Detector VERSION  ESTABLE*/
 

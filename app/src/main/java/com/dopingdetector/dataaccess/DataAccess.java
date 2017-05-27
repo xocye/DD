@@ -1,11 +1,9 @@
-package com.example.xocye.dopingdetector.dataaccess;
+package com.dopingdetector.dataaccess;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.xocye.dopingdetector.MainActivity;
-import com.example.xocye.dopingdetector.fragment.Tab1Shear;
+import com.dopingdetector.MainActivity;
 
 public class DataAccess extends SQLiteOpenHelper{
 
