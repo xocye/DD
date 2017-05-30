@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -23,10 +24,12 @@ import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
 
 public class Tab2Scan extends Fragment {
+
     private Camera mCamera;
     private CameraPreview mPreview;
     private Handler autoFocusHandler;
     private ImageScanner scanner;
+    private FloatingActionButton fab;
 
     private boolean barcodeScanned = false;
     private boolean previewing = true;
@@ -53,6 +56,8 @@ public class Tab2Scan extends Fragment {
         FrameLayout preview = (FrameLayout) rootView.findViewById(R.id.cameraPreview);
         preview.addView(mPreview);
 
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.hide();
         return rootView;
     }
 

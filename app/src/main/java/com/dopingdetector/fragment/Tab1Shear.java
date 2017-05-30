@@ -3,12 +3,14 @@ package com.dopingdetector.fragment;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,12 +22,14 @@ public class Tab1Shear extends Fragment{//class
     private DataAccess da = null;
     private SQLiteDatabase db= null;
     private EditText et1;
-
+    private FloatingActionButton fab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab1shear, container, false);
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+
         return rootView;
 
     }
@@ -35,13 +39,13 @@ public class Tab1Shear extends Fragment{//class
 
         da = new DataAccess((MainActivity) this.getActivity());
         db = da.getWritableDatabase();
-
         et1 = (EditText) getActivity().findViewById(R.id.editTextCodeB);
         String[] consulta = new String[]{et1.getText().toString()};
         if (et1.equals("") || et1.length() == 0 || et1 == null) {
             Toast.makeText(getActivity(), "El campo está vacío",
                     Toast.LENGTH_SHORT).show();
         } else {
+            fab.hide();
             Cursor c = db.rawQuery("SELECT * FROM  Farmaco WHERE Code=?", consulta);
             if (c.moveToFirst()) {
                 do {
@@ -61,6 +65,8 @@ public class Tab1Shear extends Fragment{//class
             }
 
             et1.setText("");
+            fab.show();
+
         }
     }
 

@@ -1,7 +1,11 @@
 package com.dopingdetector;
 
+import android.content.Intent;
+import android.graphics.drawable.AnimatedStateListDrawable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -17,6 +21,8 @@ import android.view.View.OnClickListener;
 
 
 import android.database.sqlite.SQLiteDatabase;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import android.widget.Button;
 
@@ -32,6 +38,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import static com.dopingdetector.R.id.container;
+
 /** Doping Detector VERSION  ESTABLE*/
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
@@ -45,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Tab1Shear tab1;
     private Tab2Scan tab2;
     private Tab3Form tab3;
+    private FloatingActionButton fab;
+    private InputMethodManager imm;
 
 
     @Override
@@ -60,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(1);// Para iniciar en la prosión 1
         mViewPager.callOnClick();
@@ -81,7 +91,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         }
         // base  de   datos
         db = da.getReadableDatabase();
-
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.hide();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            tab3.isVisible();
+            }
+        });
         // Botones
         btn1 = (Button) findViewById(R.id.btnBusqueda);
         btn2 = (Button) findViewById(R.id.btnEnviar);
@@ -151,6 +168,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             }
 
         }
+
+
 
         @Override
         public int getCount() {

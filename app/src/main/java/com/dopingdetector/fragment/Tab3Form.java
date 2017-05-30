@@ -1,6 +1,7 @@
 package com.dopingdetector.fragment;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,12 +15,14 @@ import com.dopingdetector.R;
 public class Tab3Form extends Fragment{
 
     private EditText e1, e2, e3;
-
+    private FloatingActionButton fab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3form, container, false);
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.hide();
         return rootView;
     }
 
