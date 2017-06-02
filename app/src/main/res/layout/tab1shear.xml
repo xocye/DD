@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/editTextCodeB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +36,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="Código del fármaco"
+        android:text="Ingresar Codigo/Nombre de Farmaco o Nombre de Sustancia Prohibida"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 </RelativeLayout>

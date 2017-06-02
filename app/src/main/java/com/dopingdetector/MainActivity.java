@@ -1,30 +1,25 @@
 package com.dopingdetector;
 
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-
-
-import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.dopingdetector.dataaccess.DataAccess;
 import com.dopingdetector.fragment.Tab1Shear;
 import com.dopingdetector.fragment.Tab2Scan;
 import com.dopingdetector.fragment.Tab3Form;
-
-import com.dopingdetector.dataaccess.DataAccess;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -117,7 +112,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         switch (v.getId()) {
             case (R.id.btnBusqueda):
-                tab1.Busqueda();
+
+                tab1.ScanResult();
                 break;
 
             case (R.id.btnEnviar):
@@ -167,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     return "Escaner";
 
                 case 2:
-                    return "Formulario";
+                    return "Sugerencia";
             }
             return null;
         }

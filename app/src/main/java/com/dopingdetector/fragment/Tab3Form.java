@@ -1,8 +1,8 @@
 package com.dopingdetector.fragment;
 
-import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +10,21 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dopingdetector.R;
+import com.dopingdetector.SendMailTask;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Tab3Form extends Fragment{
 
-    private EditText e1, e2, e3;
+    public static EditText e1, e2, e3, e4;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3form, container, false);
+
         return rootView;
     }
 
@@ -45,13 +50,20 @@ public class Tab3Form extends Fragment{
                     + "Código del fármaco: " + e2.getText() + "\n"
                     + "Descripción del fármaco: " + e3.getText() + "\n";
 
-            Intent i = new Intent(Intent.ACTION_SEND);
-            i.setType("plain/text");
-            i.putExtra(Intent.EXTRA_EMAIL,new String[]{"dopingdetector@gmail.com"});
-            i.putExtra(Intent.EXTRA_SUBJECT,"Datos de nuevo farmaco");
-            i.putExtra(Intent.EXTRA_TEXT,Mensaje);
-            startActivity(i);
+            Log.i("SendMailActivity", "Send Button Clicked.");
 
+            String fromEmail = "detectordoping@gmail.com";
+            String fromPassword = "UCRprogra";
+            String toEmails = "detectordoping@gmail.com";
+            List<String> toEmailList = Arrays.asList(toEmails
+                    .split("\\s*,\\s*"));
+            Log.i("SendMailActivity", "To List: " + toEmailList);
+            String emailSubject = "DD";
+            String emailBody = Mensaje;
+            new SendMailTask(this.getActivity()).execute(fromEmail,
+                    fromPassword, toEmailList, emailSubject, emailBody);
+            Toast.makeText(getActivity(),"Mensaje Enviado",
+                    Toast.LENGTH_SHORT).show();
             e1.setText("");
             e2.setText("");
             e3.setText("");
