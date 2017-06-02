@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,6 +15,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -29,11 +32,14 @@ public class Tab1Shear extends Fragment{//class
 
 
     public static String CodigoS="";
+    private FloatingActionButton fab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab1shear, container, false);
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+
 
         return rootView;
 
@@ -53,7 +59,7 @@ public class Tab1Shear extends Fragment{//class
             Toast.makeText(getActivity(),"El Codigo esta Vacio",
                     Toast.LENGTH_SHORT).show();
         } else {
-
+fab.hide();
                 Cursor c = db.rawQuery("SELECT * FROM  Farmaco WHERE Code=? OR Name=?", new String[]{consulta[0],consulta[0]});
 
                 if (c.moveToFirst()) {
@@ -143,6 +149,8 @@ public class Tab1Shear extends Fragment{//class
 
                         Result="";
                         SP="";
+                        et1.setText("");
+                        fab.show();
                     }
                 })
 
@@ -189,6 +197,8 @@ public class Tab1Shear extends Fragment{//class
                     public void onClick(DialogInterface dialog, int which) {
                         Result="";
                         SP="";
+                        et1.setText("");
+                        fab.show();
                     }
                 }).show();
 
@@ -211,8 +221,13 @@ public class Tab1Shear extends Fragment{//class
 
                         Result = "";
                         SP = "";
+                        et1.setText("");
+                        fab.show();
                     }
                 }).show();
+
+
+        }
     }
 
 }//class
