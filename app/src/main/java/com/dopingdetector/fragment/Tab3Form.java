@@ -57,9 +57,9 @@ public class Tab3Form extends Fragment{
 
             Log.i("SendMailActivity", "Send Button Clicked.");
 
-            String fromEmail = "detectordoping@gmail.com";
-            String fromPassword = "UCRprogra";
-            String toEmails = "detectordoping@gmail.com";
+            String fromEmail = "dopingdetector@gmail.com";
+            String fromPassword = "Xorajo2017";
+            String toEmails = "dopingdetector@gmail.com";
             List<String> toEmailList = Arrays.asList(toEmails
                     .split("\\s*,\\s*"));
             Log.i("SendMailActivity", "To List: " + toEmailList);
