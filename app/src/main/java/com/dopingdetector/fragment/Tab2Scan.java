@@ -197,15 +197,15 @@ public void setUserVisibleHint(boolean isVisibleToUser) {
                                 String NamePro = a.getString(1);
                                 String Details = a.getString(2);
 
-                                Result = Result +"<font color='red'>"+NamePro+"</font>";
-                                SP = SP +"*" +NamePro + ": " + Details;
+                                Result = Result +"<font color='red'>"+Character.toString(NamePro.charAt(0)).toUpperCase()+NamePro.substring(1)+"</font>";
+                                SP = SP +"*" +Character.toString(NamePro.charAt(0)).toUpperCase()+NamePro.substring(1) + ": " + Details;
                                 if (!d.isLast()) {SP = SP + "\n";
                                     Result = Result +", ";}
                                 else{Result = Result + ".";}
                             }
                             while (a.moveToNext());
                         }else{
-                            Result = Result +"<font color='green'>"+Name+"</font>";
+                            Result = Result +"<font color='green'>"+Character.toString(Name.charAt(0)).toUpperCase()+Name.substring(1)+"</font>";
                             if (!d.isLast()) {
                                 Result = Result +", ";}
                             else{Result = Result + ".";}

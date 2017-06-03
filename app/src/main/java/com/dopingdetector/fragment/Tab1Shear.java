@@ -5,9 +5,8 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -15,7 +14,6 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -56,7 +54,7 @@ public class Tab1Shear extends Fragment{//class
         String[] consulta = new String[]{et1.getText().toString().toLowerCase()};
         CodigoS = et1.getText().toString();
         if (consulta.equals("") || consulta[0].length() == 0 || consulta == null) {
-            Toast.makeText(getActivity(),"El Codigo esta Vacio",
+            Toast.makeText(getActivity(),"El Campo esta Vacio",
                     Toast.LENGTH_SHORT).show();
         } else {
 fab.hide();
@@ -87,8 +85,8 @@ fab.hide();
                                     String NamePro = a.getString(1);
                                     String Details = a.getString(2);
 
-                                    Result = Result +"<font color='red'>"+NamePro+"</font>";
-                                    SP = SP +"*" +NamePro + ": " + Details;
+                                    Result = Result +"<font color='red'>"+Character.toString(NamePro.charAt(0)).toUpperCase()+NamePro.substring(1)+"</font>";
+                                    SP = SP +"*" +Character.toString(NamePro.charAt(0)).toUpperCase()+NamePro.substring(1) + ": " + Details;
 
                                     if (!d.isLast()) {SP = SP + "\n";
                                     Result = Result +", ";}
@@ -96,7 +94,7 @@ fab.hide();
                                 }
                                 while (a.moveToNext());
                             } else {
-                                Result = Result +"<font color='green'>"+Name+"</font>";
+                                Result = Result +"<font color='green'>"+Character.toString(Name.charAt(0)).toUpperCase()+Name.substring(1)+"</font>";
                                 if (!d.isLast()) {
                                     Result = Result +", ";}
                                 else{Result = Result + ".";}
@@ -228,6 +226,5 @@ fab.hide();
 
 
         }
-    }
 
 }//class
