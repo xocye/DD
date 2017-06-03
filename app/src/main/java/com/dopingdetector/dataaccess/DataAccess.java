@@ -3,7 +3,7 @@ package com.dopingdetector.dataaccess;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.dopingdetector.MainActivity;
+import com.dopingdetector.main.MainActivity;
 
 public class DataAccess extends SQLiteOpenHelper{
 

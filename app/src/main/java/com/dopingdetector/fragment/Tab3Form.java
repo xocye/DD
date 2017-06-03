@@ -1,10 +1,8 @@
 package com.dopingdetector.fragment;
 
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dopingdetector.R;
-import com.dopingdetector.SendMailTask;
+import com.dopingdetector.actions.SendMailTask;
 
 import java.util.Arrays;
 import java.util.List;

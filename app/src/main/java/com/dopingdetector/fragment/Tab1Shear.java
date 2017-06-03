@@ -2,6 +2,7 @@ package com.dopingdetector.fragment;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -17,7 +18,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dopingdetector.MainActivity;
+import com.dopingdetector.actions.Solution;
+import com.dopingdetector.main.MainActivity;
 import com.dopingdetector.R;
 import com.dopingdetector.dataaccess.DataAccess;
 
@@ -44,7 +46,7 @@ public class Tab1Shear extends Fragment{//class
     }
 
 
-    public void ScanResult() {
+    public void Result() {
 
         da = new DataAccess((MainActivity) this.getActivity());
         db = da.getWritableDatabase();
@@ -57,81 +59,82 @@ public class Tab1Shear extends Fragment{//class
             Toast.makeText(getActivity(),"El Campo esta Vacio",
                     Toast.LENGTH_SHORT).show();
         } else {
-fab.hide();
-                Cursor c = db.rawQuery("SELECT * FROM  Farmaco WHERE Code=? OR Name=?", new String[]{consulta[0],consulta[0]});
+            fab.hide();
+            Cursor c = db.rawQuery("SELECT * FROM  Farmaco WHERE Code=? OR Name=?", new String[]{consulta[0],consulta[0]});
 
-                if (c.moveToFirst()) {
+            if (c.moveToFirst()) {
+                do {
+                    String Code = c.getString(0);
+                    String Name = Character.toString(c.getString(1).charAt(0)).toUpperCase()+c.getString(1).substring(1);
+
+                    String Description = c.getString(2);
+                    Result = "Nombre del fÃ¡rmaco: " + Name + "\n"
+                            + "CÃ³digo del fÃ¡rmaco: " + Code + "\n"
+                            + "DescripciÃ³n del fÃ¡rmaco: " + Description + "\n"
+                            + "Sustancias: ";
+                    codigo= Code;
+                } while (c.moveToNext());
+
+                Cursor d = db.rawQuery("SELECT * FROM  Sustancia WHERE Code=?",new String[]{codigo});
+                if (d.moveToFirst()) {
                     do {
-                        String Code = c.getString(0);
-                        String Name = Character.toString(c.getString(1).charAt(0)).toUpperCase()+c.getString(1).substring(1);
+                        String Name = d.getString(2);
+                        String[] prohibida = new String[]{Name.toString().toLowerCase()};
 
-                        String Description = c.getString(2);
-                        Result = "Nombre del fármaco: " + Name + "\n"
-                                + "Código del fármaco: " + Code + "\n"
-                                + "Descripción del fármaco: " + Description + "\n"
-                                + "Sustancias: ";
-                        codigo= Code;
-                    } while (c.moveToNext());
+                        Cursor a = db.rawQuery("SELECT * FROM  SustanciaProhibida WHERE Name=?",prohibida);
+                        if (a.moveToFirst()) {
+                            do {
+                                String NamePro = a.getString(1);
+                                String Details = a.getString(2);
 
-                    Cursor d = db.rawQuery("SELECT * FROM  Sustancia WHERE Code=?",new String[]{codigo});
-                    if (d.moveToFirst()) {
-                        do {
-                            String Name = d.getString(2);
-                            String[] prohibida = new String[]{Name.toString().toLowerCase()};
+                                Result = Result +"<font color='red'>"+Character.toString(NamePro.charAt(0)).toUpperCase()+NamePro.substring(1)+"</font>";
+                                SP = SP +"*" +Character.toString(NamePro.charAt(0)).toUpperCase()+NamePro.substring(1) + ": " + Details;
 
-                            Cursor a = db.rawQuery("SELECT * FROM  SustanciaProhibida WHERE Name=?",prohibida);
-                            if (a.moveToFirst()) {
-                                do {
-                                    String NamePro = a.getString(1);
-                                    String Details = a.getString(2);
-
-                                    Result = Result +"<font color='red'>"+Character.toString(NamePro.charAt(0)).toUpperCase()+NamePro.substring(1)+"</font>";
-                                    SP = SP +"*" +Character.toString(NamePro.charAt(0)).toUpperCase()+NamePro.substring(1) + ": " + Details;
-
-                                    if (!d.isLast()) {SP = SP + "\n";
-                                    Result = Result +", ";}
-                                    else{Result = Result + ".";}
-                                }
-                                while (a.moveToNext());
-                            } else {
-                                Result = Result +"<font color='green'>"+Character.toString(Name.charAt(0)).toUpperCase()+Name.substring(1)+"</font>";
-                                if (!d.isLast()) {
+                                if (!d.isLast()) {SP = SP + "\n";
                                     Result = Result +", ";}
                                 else{Result = Result + ".";}
                             }
-
-                        }
-                        while (d.moveToNext());
-                        if (SP == "") {
-                            showAlertDialogDNS(Result);
+                            while (a.moveToNext());
                         } else {
-                            showAlertDialog(Result);
+                            Result = Result +"<font color='green'>"+Character.toString(Name.charAt(0)).toUpperCase()+Name.substring(1)+"</font>";
+                            if (!d.isLast()) {
+                                Result = Result +", ";}
+                            else{Result = Result + ".";}
                         }
-                    } else {
-                        Result = Result + "No tiene Sustancias" + "\n";
 
+                    }
+                    while (d.moveToNext());
+                    if (SP == "") {
                         showAlertDialogDNS(Result);
+                    } else {
+                        showAlertDialog(Result);
                     }
                 } else {
+                    Result = Result + "No tiene Sustancias" + "\n";
 
-                        Cursor r = db.rawQuery("SELECT * FROM  SustanciaProhibida WHERE Name=?", consulta);
-                        if (r.moveToFirst()) {
-                            do {
-                                String NamePro = r.getString(1);
-                                String Details = r.getString(2);
-                                SP = SP +"*" + NamePro + ": " + Details;
-                            }
-                            while (r.moveToNext());
+                    showAlertDialogDNS(Result);
+                }
+            } else {
 
-                            showAlertDialogDNS(SP);
-                        } else {
+                Cursor r = db.rawQuery("SELECT * FROM  SustanciaProhibida WHERE Name=?", consulta);
+                if (r.moveToFirst()) {
+                    do {
+                        String NamePro = r.getString(1);
+                        String Details = r.getString(2);
+                        SP = SP +"*" + NamePro + ": " + Details;
+                    }
+                    while (r.moveToNext());
 
-                            Result = "No Existe el Farmaco o Sustancia Prohibida en la Base de Datos: " + et1.getText().toString();
-                            showAlertDialogS(Result);
+                    showAlertDialogDNS(SP);
+                } else {
 
-                        }
+                    Result = "No Existe el FÃ¡rmaco o Sustancia Prohibida en la Base de Datos: " + et1.getText().toString();
+                    showAlertDialogS(Result);
+                    fab.show();
 
                 }
+
+            }
 
 
         }
@@ -148,7 +151,6 @@ fab.hide();
                         Result="";
                         SP="";
                         et1.setText("");
-                        fab.show();
                     }
                 })
 
@@ -196,7 +198,6 @@ fab.hide();
                         Result="";
                         SP="";
                         et1.setText("");
-                        fab.show();
                     }
                 }).show();
 
@@ -220,11 +221,16 @@ fab.hide();
                         Result = "";
                         SP = "";
                         et1.setText("");
-                        fab.show();
                     }
                 }).show();
 
 
-        }
+    }
 
+    public void Vista() {
+
+
+        Intent intent = new Intent(getActivity(),Solution.class);
+        getActivity().startActivity(intent);
+    }
 }//class

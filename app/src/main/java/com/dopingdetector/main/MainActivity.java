@@ -1,4 +1,4 @@
-package com.dopingdetector;
+package com.dopingdetector.main;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.dopingdetector.R;
+import com.dopingdetector.actions.Solution;
 import com.dopingdetector.dataaccess.DataAccess;
 import com.dopingdetector.fragment.Tab1Shear;
 import com.dopingdetector.fragment.Tab2Scan;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Tab1Shear tab1;
     private Tab2Scan tab2;
     private Tab3Form tab3;
+    private Solution solution;
     private FloatingActionButton fab;
     private InputMethodManager imm;
 
@@ -63,17 +66,19 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(1);// Para iniciar en la prosión 1
+        mViewPager.setCurrentItem(1);// Para iniciar en la prosiÃ³n 1
         mViewPager.callOnClick();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
 
         //llamado
         da = new DataAccess(this);
         tab1 = new Tab1Shear();
         tab2 = new Tab2Scan();
         tab3 = new Tab3Form();
+        solution = new Solution();
         // base  de   datos
         try {
             base();
@@ -84,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         db = da.getReadableDatabase();
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.hide();
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 mViewPager.setCurrentItem(2);
@@ -126,12 +131,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         switch (v.getId()) {
             case (R.id.btnBusqueda):
 
-                tab1.ScanResult();
+                tab1.Vista();
+                //tab1.Solution();
                 break;
 
             case (R.id.btnEnviar):
                 tab3.EnviarCorreo();
-                 break;
+                mViewPager.setCurrentItem(1);
+                break;
         }
     }
 

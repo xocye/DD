@@ -1,4 +1,4 @@
-package com.dopingdetector;
+package com.dopingdetector.actions;
 
 import android.content.Context;
 import android.hardware.Camera;

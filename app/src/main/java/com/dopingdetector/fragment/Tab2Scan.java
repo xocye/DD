@@ -21,8 +21,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.dopingdetector.CameraPreview;
-import com.dopingdetector.MainActivity;
+import com.dopingdetector.actions.CameraPreview;
+import com.dopingdetector.main.MainActivity;
 import com.dopingdetector.R;
 import com.dopingdetector.dataaccess.DataAccess;
 

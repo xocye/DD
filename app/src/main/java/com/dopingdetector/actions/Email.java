@@ -1,4 +1,4 @@
-package com.dopingdetector;
+package com.dopingdetector.actions;
 
 /**
  * Created by Chacon on 5/29/17.
@@ -17,7 +17,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class GMail {
+public class Email {
 
     final String emailPort = "587";// gmail's smtp port
     final String smtpAuth = "true";
@@ -35,11 +35,11 @@ public class GMail {
     Session mailSession;
     MimeMessage emailMessage;
 
-    public GMail() {
+    public Email() {
 
     }
 
-    public GMail(String fromEmail, String fromPassword,
+    public Email(String fromEmail, String fromPassword,
                  List<String> toEmailList, String emailSubject, String emailBody) {
         this.fromEmail = fromEmail;
         this.fromPassword = fromPassword;
@@ -51,7 +51,7 @@ public class GMail {
         emailProperties.put("mail.smtp.port", emailPort);
         emailProperties.put("mail.smtp.auth", smtpAuth);
         emailProperties.put("mail.smtp.starttls.enable", starttls);
-        Log.i("GMail", "Mail server properties set.");
+        Log.i("Email", "Mail server properties set.");
     }
 
     public MimeMessage createEmailMessage() throws AddressException,
@@ -62,7 +62,7 @@ public class GMail {
 
         emailMessage.setFrom(new InternetAddress(fromEmail, fromEmail));
         for (String toEmail : toEmailList) {
-            Log.i("GMail", "toEmail: " + toEmail);
+            Log.i("Email", "toEmail: " + toEmail);
             emailMessage.addRecipient(Message.RecipientType.TO,
                     new InternetAddress(toEmail));
         }
@@ -70,7 +70,7 @@ public class GMail {
         emailMessage.setSubject(emailSubject);
         emailMessage.setContent(emailBody, "text/html");// for a html email
         // emailMessage.setText(emailBody);// for a text email
-        Log.i("GMail", "Email Message created.");
+        Log.i("Email", "Email Message created.");
         return emailMessage;
     }
 
@@ -78,10 +78,10 @@ public class GMail {
 
         Transport transport = mailSession.getTransport("smtp");
         transport.connect(emailHost, fromEmail, fromPassword);
-        Log.i("GMail", "allrecipients: " + emailMessage.getAllRecipients());
+        Log.i("Email", "allrecipients: " + emailMessage.getAllRecipients());
         transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
         transport.close();
-        Log.i("GMail", "Email sent successfully.");
+        Log.i("Email", "Email sent successfully.");
     }
 
 }

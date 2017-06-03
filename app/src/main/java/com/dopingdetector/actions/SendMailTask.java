@@ -1,4 +1,4 @@
-package com.dopingdetector;
+package com.dopingdetector.actions;
 
 /**
  * Created by Chacon on 5/29/17.
@@ -33,9 +33,9 @@ public class SendMailTask extends AsyncTask {
     @Override
     protected Object doInBackground(Object... args) {
         try {
-            Log.i("SendMailTask", "About to instantiate GMail...");
+            Log.i("SendMailTask", "About to instantiate Email...");
             publishProgress("Processing input....");
-            GMail androidEmail = new GMail(args[0].toString(),
+            Email androidEmail = new Email(args[0].toString(),
                     args[1].toString(), (List) args[2], args[3].toString(),
                     args[4].toString());
             publishProgress("Preparing mail message....");
