@@ -2,6 +2,7 @@ package com.dopingdetector.fragment;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dopingdetector.R;
+import com.dopingdetector.actions.Solution;
 import com.dopingdetector.dataaccess.DataAccess;
 import com.dopingdetector.main.MainActivity;
 
@@ -224,5 +226,11 @@ public class Tab1Shear extends Fragment{//class
 
 
     }
+
+    public void Vista() {
+         Intent intent = new Intent(getActivity(),Solution.class);
+        getActivity().startActivity(intent);
+        }
+
 
 }//class

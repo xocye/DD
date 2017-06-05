@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.dopingdetector.R;
+import com.dopingdetector.actions.Solution;
 import com.dopingdetector.dataaccess.DataAccess;
 import com.dopingdetector.fragment.Tab1Shear;
 import com.dopingdetector.fragment.Tab2Scan;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         tab1 = new Tab1Shear();
         tab2 = new Tab2Scan();
         tab3 = new Tab3Form();
+
         ;
         // base  de   datos
         try {
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.btnAcerca) {
-            Toast.makeText(this, "Doping Detector Version 0.1",
+            Toast.makeText(this, "Doping Detector Version 0.2",
                     Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -133,13 +135,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         switch (v.getId()) {
             case (R.id.btnBusqueda):
-                tab1.Result();
-                //tab1.Vista();
+                //tab1.Result();
+                tab1.Vista();
                 break;
 
             case (R.id.btnEnviar):
                 tab3.EnviarCorreo();
-
                 break;
         }
     }
