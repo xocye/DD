@@ -1,5 +1,6 @@
 package com.dopingdetector.main;
 
+import android.app.ActionBar;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -133,14 +134,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         switch (v.getId()) {
             case (R.id.btnBusqueda):
-
-                tab1.Vista();
-                //tab1.Solution();
+                 tab1.Result();
+                //tab1.Vista();
                 break;
 
             case (R.id.btnEnviar):
                 tab3.EnviarCorreo();
-                mViewPager.setCurrentItem(1);
+
                 break;
         }
     }
