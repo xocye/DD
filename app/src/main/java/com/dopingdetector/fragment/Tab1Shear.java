@@ -226,11 +226,12 @@ public class Tab1Shear extends Fragment{//class
 
 
     }
-
+    /**
     public void Vista() {
 
 
         Intent intent = new Intent(getActivity(),Solution.class);
         getActivity().startActivity(intent);
     }
+    */
 }//class

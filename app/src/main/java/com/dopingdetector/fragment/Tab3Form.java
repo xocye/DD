@@ -63,7 +63,7 @@ public class Tab3Form extends Fragment{
             List<String> toEmailList = Arrays.asList(toEmails
                     .split("\\s*,\\s*"));
             Log.i("SendMailActivity", "To List: " + toEmailList);
-            String emailSubject = "DD";
+            String emailSubject = "dd";
             String emailBody = Mensaje;
             new SendMailTask(this.getActivity()).execute(fromEmail,
                     fromPassword, toEmailList, emailSubject, emailBody);
