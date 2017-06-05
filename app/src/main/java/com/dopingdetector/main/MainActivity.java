@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.dopingdetector.R;
-import com.dopingdetector.actions.Solution;
 import com.dopingdetector.dataaccess.DataAccess;
 import com.dopingdetector.fragment.Tab1Shear;
 import com.dopingdetector.fragment.Tab2Scan;
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Tab1Shear tab1;
     private Tab2Scan tab2;
     private Tab3Form tab3;
-    private Solution solution;
     private FloatingActionButton fab;
     private InputMethodManager imm;
 
@@ -77,8 +75,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         da = new DataAccess(this);
         tab1 = new Tab1Shear();
         tab2 = new Tab2Scan();
-        tab3 = new Tab3Form();
-        solution = new Solution();
+        tab3 = new Tab3Form();;
         // base  de   datos
         try {
             base();
