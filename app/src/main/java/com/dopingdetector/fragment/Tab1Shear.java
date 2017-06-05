@@ -2,7 +2,6 @@ package com.dopingdetector.fragment;
 
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dopingdetector.main.MainActivity;
 import com.dopingdetector.R;
 import com.dopingdetector.dataaccess.DataAccess;
 import com.dopingdetector.main.MainActivity;
@@ -68,9 +66,9 @@ public class Tab1Shear extends Fragment{//class
                     String Name = Character.toString(c.getString(1).charAt(0)).toUpperCase()+c.getString(1).substring(1);
 
                     String Description = c.getString(2);
-                    Result = "Nombre del fÃ¡rmaco: " + Name + "\n"
-                            + "CÃ³digo del fÃ¡rmaco: " + Code + "\n"
-                            + "DescripciÃ³n del fÃ¡rmaco: " + Description + "\n"
+                    Result = "Nombre del farmaco: " + Name + "\n"
+                            + "Codigo del farmaco: " + Code + "\n"
+                            + "Descripcion del farmaco: " + Description + "\n"
                             + "Sustancias: ";
                     codigo= Code;
                 } while (c.moveToNext());
@@ -128,7 +126,7 @@ public class Tab1Shear extends Fragment{//class
                     showAlertDialogDNS(SP);
                 } else {
 
-                    Result = "No Existe el FÃ¡rmaco o Sustancia Prohibida en la Base de Datos: " + et1.getText().toString();
+                    Result = "No Existe el Farmaco o Sustancia Prohibida en la Base de Datos: " + et1.getText().toString();
                     showAlertDialogS(Result);
                     fab.show();
 
