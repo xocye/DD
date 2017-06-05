@@ -33,7 +33,9 @@ import java.io.OutputStream;
 
 import static com.dopingdetector.R.id.container;
 
-/** Doping Detector VERSION  ESTABLE*/
+/**
+ * Doping Detector VERSION  ESTABLE
+ */
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
@@ -74,7 +76,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         da = new DataAccess(this);
         tab1 = new Tab1Shear();
         tab2 = new Tab2Scan();
-        tab3 = new Tab3Form();;
+        tab3 = new Tab3Form();
+        ;
         // base  de   datos
         try {
             base();
@@ -126,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         switch (v.getId()) {
             case (R.id.btnBusqueda):
-                 tab1.Result();
+                tab1.Result();
                 //tab1.Vista();
                 break;
 
@@ -162,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             }
 
         }
-
 
 
         @Override
@@ -220,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         myInput.close();
 
     }
-
 
 
 }////class
