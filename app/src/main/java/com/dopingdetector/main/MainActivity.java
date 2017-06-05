@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-
         //llamado
         da = new DataAccess(this);
         tab1 = new Tab1Shear();
