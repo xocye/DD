@@ -2,6 +2,7 @@ package com.dopingdetector.fragment;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dopingdetector.main.MainActivity;
 import com.dopingdetector.R;
 import com.dopingdetector.dataaccess.DataAccess;
 import com.dopingdetector.main.MainActivity;
@@ -65,13 +67,13 @@ public class Tab1Shear extends Fragment{//class
                     String Code = c.getString(0);
                     String Name = Character.toString(c.getString(1).charAt(0)).toUpperCase()+c.getString(1).substring(1);
 
-                        String Description = c.getString(2);
-                        Result = "Nombre del fármaco: " + Name + "\n"
-                                + "Código del fármaco: " + Code + "\n"
-                                + "Descripción del fármaco: " + Description + "\n"
-                                + "Sustancias: ";
-                        codigo= Code;
-                    } while (c.moveToNext());
+                    String Description = c.getString(2);
+                    Result = "Nombre del fÃ¡rmaco: " + Name + "\n"
+                            + "CÃ³digo del fÃ¡rmaco: " + Code + "\n"
+                            + "DescripciÃ³n del fÃ¡rmaco: " + Description + "\n"
+                            + "Sustancias: ";
+                    codigo= Code;
+                } while (c.moveToNext());
 
                 Cursor d = db.rawQuery("SELECT * FROM  Sustancia WHERE Code=?",new String[]{codigo});
                 if (d.moveToFirst()) {
@@ -126,8 +128,9 @@ public class Tab1Shear extends Fragment{//class
                     showAlertDialogDNS(SP);
                 } else {
 
-                            Result = "No Existe el Farmaco o Sustancia Prohibida en la Base de Datos: " + et1.getText().toString();
-                            showAlertDialogS(Result);
+                    Result = "No Existe el FÃ¡rmaco o Sustancia Prohibida en la Base de Datos: " + et1.getText().toString();
+                    showAlertDialogS(Result);
+                    fab.show();
 
                 }
 
@@ -218,16 +221,10 @@ public class Tab1Shear extends Fragment{//class
                         Result = "";
                         SP = "";
                         et1.setText("");
-
                     }
                 }).show();
 
 
     }
-    /**
-    public void Vista() {
-        Intent intent = new Intent(getActivity(),Solution.class);
-        getActivity().startActivity(intent);
-    }
-    */
+
 }//class
