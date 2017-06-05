@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dopingdetector.actions.Solution;
 import com.dopingdetector.main.MainActivity;
 import com.dopingdetector.R;
 import com.dopingdetector.dataaccess.DataAccess;
@@ -226,10 +225,5 @@ public class Tab1Shear extends Fragment{//class
 
 
     }
-    /**
-    public void Vista() {
-        Intent intent = new Intent(getActivity(),Solution.class);
-        getActivity().startActivity(intent);
-    }
-    */
+
 }//class

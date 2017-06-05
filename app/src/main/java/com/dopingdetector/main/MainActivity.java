@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.dopingdetector.R;
-import com.dopingdetector.actions.Solution;
 import com.dopingdetector.dataaccess.DataAccess;
 import com.dopingdetector.fragment.Tab1Shear;
 import com.dopingdetector.fragment.Tab2Scan;
@@ -34,7 +33,9 @@ import java.io.OutputStream;
 
 import static com.dopingdetector.R.id.container;
 
-/** Doping Detector VERSION  ESTABLE*/
+/**
+ * Doping Detector VERSION  ESTABLE
+ */
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Tab1Shear tab1;
     private Tab2Scan tab2;
     private Tab3Form tab3;
-    private Solution solution;
     private FloatingActionButton fab;
     private InputMethodManager imm;
 
@@ -72,13 +72,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-
         //llamado
         da = new DataAccess(this);
         tab1 = new Tab1Shear();
         tab2 = new Tab2Scan();
         tab3 = new Tab3Form();
-        solution = new Solution();
+        ;
         // base  de   datos
         try {
             base();
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         switch (v.getId()) {
             case (R.id.btnBusqueda):
-                 tab1.Result();
+                tab1.Result();
                 //tab1.Vista();
                 break;
 
@@ -166,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             }
 
         }
-
 
 
         @Override
@@ -224,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         myInput.close();
 
     }
-
 
 
 }////class
