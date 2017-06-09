@@ -25,14 +25,16 @@ import com.dopingdetector.actions.CameraPreview;
 import com.dopingdetector.main.MainActivity;
 import com.dopingdetector.R;
 import com.dopingdetector.dataaccess.DataAccess;
+import com.google.zxing.Result;
 
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;
 import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class Tab2Scan extends Fragment {
+public class Tab2Scan extends Fragment  implements ZXingScannerView.ResultHandler{
 
     private Camera mCamera;
     private CameraPreview mPreview;
@@ -51,6 +53,7 @@ public class Tab2Scan extends Fragment {
     private String CodigoS;
 
     public static EditText editText;
+    private ZXingScannerView mScannerView;
 
     static {
         System.loadLibrary("iconv");
@@ -61,118 +64,54 @@ public class Tab2Scan extends Fragment {
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-
-        autoFocusHandler = new Handler();
-        mCamera = getCameraInstance();
-
-        // Instance barcode scanner
-        scanner = new ImageScanner();
-        scanner.setConfig(0, Config.X_DENSITY, 3);
-        scanner.setConfig(0, Config.Y_DENSITY, 3);
-
-        mPreview = new CameraPreview(rootView.getContext(), mCamera, previewCb,
-                autoFocusCB);
+        mScannerView = new ZXingScannerView(getActivity());   // Programmatically initialize the scanner view
         FrameLayout preview = (FrameLayout) rootView.findViewById(R.id.cameraPreview);
-        preview.addView(mPreview);
-
-        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-        fab.hide();
+        preview.addView(mScannerView);
         return rootView;
     }
-@Override
-public void setUserVisibleHint(boolean isVisibleToUser) {
-    super.setUserVisibleHint(isVisibleToUser);
-       if(this.isVisible()) {
-           barcodeScanned = false;
-           mCamera.setPreviewCallback(previewCb);
-           mCamera.startPreview();
-           previewing = true;
-           if (!isVisibleToUser) {
-               previewing = false;
-               mCamera.setPreviewCallback(null);
-               mCamera.stopPreview();
-               barcodeScanned = true;
-           }
-       }
-}
-    /**
-     * A safe way to get an instance of the Camera object.
-     */
-    public static Camera getCameraInstance() {
-        Camera c = null;
-        try {
-            c = Camera.open();
-        } catch (Exception e) {
-        }
-        return c;
-    }
-
-    private Runnable doAutoFocus = new Runnable() {
-        public void run() {
-            if (previewing)
-                mCamera.autoFocus(autoFocusCB);
-        }
-    };
-
-    Camera.PreviewCallback previewCb = new Camera.PreviewCallback() {
-        public void onPreviewFrame(byte[] data, Camera camera) {
-            Camera.Parameters parameters = camera.getParameters();
-            Camera.Size size = parameters.getPreviewSize();
-
-            Image barcode = new Image(size.width, size.height, "Y800");
-            barcode.setData(data);
-
-            int result = scanner.scanImage(barcode);
-
-            if (result != 0) {
-                previewing = false;
-                mCamera.setPreviewCallback(null);
-                mCamera.stopPreview();
-
-                SymbolSet syms = scanner.getResults();
-                for (Symbol sym : syms) {
-
-                    Log.i("<<<<<<Asset Code>>>>> ",
-                            "<<<<Bar Code>>> " + sym.getData());
-                    String scanResult = sym.getData().trim();
-                    barcodeScanned = true;
-                    CodigoS=scanResult;
-                    ScanResult(scanResult);
-
-                  /*  Toast.makeText(BarcodeScanner.this, scanResult,
-                            Toast.LENGTH_SHORT).show();*/
-
-
-
-                    break;
-                }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(this.isVisible()) {
+            mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
+            mScannerView.startCamera();
+            if (!isVisibleToUser) {
+                mScannerView.stopCamera();
             }
         }
-    };
+    }
 
-    // Mimic continuous auto-focusing
-    Camera.AutoFocusCallback autoFocusCB = new Camera.AutoFocusCallback() {
-        public void onAutoFocus(boolean success, Camera camera) {
-            autoFocusHandler.postDelayed(doAutoFocus, 1000);
+        @Override
+        public void onResume() {
+            super.onResume();
+            mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
+            mScannerView.startCamera();          // Start camera on resume
         }
-    };
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            mScannerView.stopCamera();           // Stop camera on pause
+        }
+
+
+        public void handleResult(com.google.zxing.Result rawResult) {
+String code = rawResult.getText();
+            ScanResult(code);
+        }
 
     public void ScanResult(String message) {
 
         da = new DataAccess((MainActivity) this.getActivity());
         db = da.getWritableDatabase();
 
-
+        CodigoS= message;
         String[] consulta = new String[]{message.toString()};
         if (message.equals("") || message.length() == 0 || message == null) {
             Toast.makeText(getActivity(),"El Codigo esta Vacio",
                     Toast.LENGTH_SHORT).show();
-            if (barcodeScanned) {
-                barcodeScanned = false;
-                mCamera.setPreviewCallback(previewCb);
-                mCamera.startPreview();
-                previewing = true;
-            }
+
+            mScannerView.resumeCameraPreview(this);
         } else {
             Cursor c = db.rawQuery("SELECT * FROM  Farmaco WHERE Code=?", consulta);
             Cursor d = db.rawQuery("SELECT * FROM  Sustancia WHERE Code=?", consulta);
@@ -237,12 +176,7 @@ public void setUserVisibleHint(boolean isVisibleToUser) {
                 .setMessage(Html.fromHtml(color2))
                 .setNegativeButton("Volver", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if (barcodeScanned) {
-                            barcodeScanned = false;
-                            mCamera.setPreviewCallback(previewCb);
-                            mCamera.startPreview();
-                            previewing = true;
-                        }
+                        mScannerView.resumeCameraPreview(Tab2Scan.this);
                         Result="";
                         SP="";
                     }
@@ -286,12 +220,7 @@ public void setUserVisibleHint(boolean isVisibleToUser) {
                 .setMessage(Html.fromHtml(color2))
                 .setNegativeButton("Volver", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if (barcodeScanned) {
-                            barcodeScanned = false;
-                            mCamera.setPreviewCallback(previewCb);
-                            mCamera.startPreview();
-                            previewing = true;
-                        }
+                        mScannerView.resumeCameraPreview(Tab2Scan.this);
                         Result="";
                         SP="";
                     }
@@ -308,12 +237,7 @@ public void setUserVisibleHint(boolean isVisibleToUser) {
                     public void onClick(DialogInterface dialog, int which) {
                         editText = (EditText) getActivity().findViewById(R.id.editTextCode);
                         editText.setText(CodigoS);
-                        if (barcodeScanned) {
-                            barcodeScanned = false;
-                            mCamera.setPreviewCallback(previewCb);
-                            mCamera.startPreview();
-                           previewing = true;
-                        }
+                        mScannerView.resumeCameraPreview(Tab2Scan.this);
                         ViewPager mViewPager = (ViewPager) getActivity().findViewById(R.id.container);
                         mViewPager.setCurrentItem(2);
 
@@ -321,12 +245,7 @@ public void setUserVisibleHint(boolean isVisibleToUser) {
                 })
         .setNegativeButton("Volver", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if (barcodeScanned) {
-                    barcodeScanned = false;
-                    mCamera.setPreviewCallback(previewCb);
-                    mCamera.startPreview();
-                    previewing = true;
-                }
+                mScannerView.resumeCameraPreview(Tab2Scan.this);
                 Result="";
                 SP="";
             }
